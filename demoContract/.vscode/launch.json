@@ -11,7 +11,10 @@
             "preLaunchTask": "tsc: build - tsconfig.json",
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js"
-            ]
+            ],
+            "env": {
+                "CORE_CHAINCODE_ID_NAME": "demoContract:0.0.4"
+            }
         }
     ]
 }

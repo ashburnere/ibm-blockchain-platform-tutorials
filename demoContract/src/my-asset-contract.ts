@@ -8,6 +8,16 @@ import { MyAsset } from './my-asset';
 @Info({title: 'MyAssetContract', description: 'My Smart Contract' })
 export class MyAssetContract extends Contract {
 
+    @Transaction()
+    public async setup(ctx: Context): Promise<void> {
+        const myAsset = new MyAsset();
+        const exists = await this.myAssetExists(ctx, '001');
+        console.log("Channel-ID: " + ctx.stub.getChannelID);
+        myAsset.value = 'an asset created on upgrade';
+        const buffer = Buffer.from(JSON.stringify(myAsset));
+        await ctx.stub.putState('001', buffer);
+    }
+
     @Transaction(false)
     @Returns('boolean')
     public async myAssetExists(ctx: Context, myAssetId: string): Promise<boolean> {
@@ -16,13 +26,13 @@ export class MyAssetContract extends Contract {
     }
 
     @Transaction()
-    public async createMyAsset(ctx: Context, myAssetId: string, value: string): Promise<void> {
+    public async createMyAsset(ctx: Context, myAssetId: string, assetName: string, assetValue: string): Promise<void> {
         const exists = await this.myAssetExists(ctx, myAssetId);
         if (exists) {
             throw new Error(`The my asset ${myAssetId} already exists`);
         }
         const myAsset = new MyAsset();
-        myAsset.value = value;
+        myAsset.value = assetName + assetValue;
         const buffer = Buffer.from(JSON.stringify(myAsset));
         await ctx.stub.putState(myAssetId, buffer);
     }
