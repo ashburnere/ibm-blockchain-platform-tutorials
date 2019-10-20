@@ -1,6 +1,7 @@
-**Tutorial 1**
+**Tutorial 1** 
 ## **Local Smart Contract Development**
 `20-30 mins`
+https://developer.ibm.com/tutorials/ibm-blockchain-platform-vscode-smart-contract/
 
 Follow the typical workflow from generating a new smart contract project, deploying code to the _Local Fabric_ runtime, and testing your transactions via an application gateway.
 
